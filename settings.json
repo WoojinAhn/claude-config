@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(source venv/bin/activate)",
+      "Bash(python paste_admin.py:*)",
+      "Bash(open http://localhost:8888)"
+    ]
+  },
+  "model": "opus"
+}
