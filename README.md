@@ -1,42 +1,44 @@
+🌐 [English](README.md) | [한국어](README.ko.md)
+
 # claude-config
 
-Claude Code 글로벌 설정을 관리하는 저장소.
+A repository for managing Claude Code global settings.
 
-`~/.claude/`에 직접 연결하지 않고, 스크립트를 통해 **파일 복사 방식**으로 동기화한다.
+Syncs via **file copy** through a script — no symlinks into `~/.claude/`.
 
-## 관리 대상
+## Managed Files
 
-| 파일 | 용도 |
+| File | Purpose |
 |---|---|
-| `CLAUDE.md` | 글로벌 행동 지침 (모든 프로젝트에 적용) |
-| `settings.json` | 모델, 권한, hooks 등 런타임 설정 |
+| `CLAUDE.md` | Global behavior instructions (applied to all projects) |
+| `settings.json` | Model, permissions, hooks, and other runtime settings |
 
-## 사용법
+## Usage
 
 ```bash
-# 동기화 상태 확인
+# Check sync status
 ~/claude-config/sync.sh status
 
-# 차이점 확인
+# Show diff between repo and ~/.claude/
 ~/claude-config/sync.sh diff
 
-# remote -> ~/.claude/ 반영
+# Pull: remote -> ~/.claude/
 ~/claude-config/sync.sh pull
 
-# ~/.claude/ -> remote 반영
+# Push: ~/.claude/ -> remote
 ~/claude-config/sync.sh push
 ```
 
-## 새 머신 초기 세팅
+## New Machine Setup
 
 ```bash
 git clone git@github.com:WoojinAhn/claude-config.git ~/claude-config
 ~/claude-config/sync.sh pull
 ```
 
-## 파일 추가
+## Adding Files
 
-`sync.sh` 내 `FILES` 배열에 파일명을 추가하면 동기화 대상에 포함된다.
+Add filenames to the `FILES` array in `sync.sh` to include them in sync.
 
 ```bash
 FILES=("CLAUDE.md" "settings.json" "keybindings.json")
