@@ -1,6 +1,6 @@
 # Language & Response
 
-- Respond in **Korean**; code, commit messages, and variable names in **English**
+- Respond in **Korean**; code, commit messages, variable names, and documentation in **English**
 - Simple tasks → code first, brief explanation if needed
 - Complex tasks → explain approach, then code
 
