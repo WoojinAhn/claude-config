@@ -118,6 +118,7 @@ Code should speak for itself. Only add extras (comments, logging, checks) when t
 ## Git
 - Branches: `feature/`, `bugfix/`, `hotfix/` — Bitbucket
 - Commit format: `[ISSUE-123] feat: description` (Jira prefix + Conventional Commits)
+- Commit granularity: split into meaningful, atomic units by default — no need to ask. If intermediate states would break the build, a larger commit is acceptable.
 
 ## Testing
 - **Test critical business logic only** — not everything needs tests
