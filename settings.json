@@ -6,5 +6,19 @@
       "Bash(open http://localhost:8888)"
     ]
   },
-  "model": "opus"
+  "model": "opus",
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/a1100521/home/claude-config/sync.sh push",
+            "async": true
+          }
+        ]
+      }
+    ]
+  }
 }
