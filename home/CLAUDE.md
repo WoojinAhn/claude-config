@@ -17,3 +17,7 @@ GitHub 관련 문화, 제공 서비스, 기능(Actions, Secrets, Fork 등)을 �
 ## API Keys
 
 API 키 정보는 `.claude/keys.md` 파일 참조 (gitignore 처리됨).
+
+## Config Sync
+
+이 디렉토리의 설정 및 지식 파일은 `~/home/claude-config` 레포를 통해 동기화된다. 새 파일을 추가하거나 기존 파일이 이 CLAUDE.md에서 참조될 경우, `claude-config/sync.sh`의 `SYNC_PAIRS`에도 등록해야 한다. 등록 후 `./sync.sh setup` 실행하여 hook 재설치 필요.
