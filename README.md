@@ -2,16 +2,18 @@
 
 # claude-config
 
-A repository for managing Claude Code global settings.
+A repository for managing Claude Code settings — both global and home-level.
 
-Syncs via **file copy** through a script — no symlinks into `~/.claude/`.
+Syncs via **file copy** through a script — no symlinks.
 
 ## Managed Files
 
-| File | Purpose |
-|---|---|
-| `CLAUDE.md` | Global behavior instructions (applied to all projects) |
-| `settings.json` | Model, permissions, hooks, and other runtime settings |
+| Repo Path | Local Path | Purpose |
+|---|---|---|
+| `CLAUDE.md` | `~/.claude/CLAUDE.md` | Global behavior instructions (applied to all projects) |
+| `settings.json` | `~/.claude/settings.json` | Global model, permissions, hooks settings |
+| `home/CLAUDE.md` | `~/home/CLAUDE.md` | Home-level project instructions |
+| `home/settings.json` | `~/home/.claude/settings.json` | Home-level permissions |
 
 ## New Machine Setup
 
@@ -22,20 +24,21 @@ cd ~/path/to/claude-config
 ```
 
 `setup` will:
-1. Show diff between repo and `~/.claude/` for each managed file
+1. Show diff between repo and local for each managed file
 2. Ask whether to overwrite each file (local file is backed up as `*.bak`)
-3. Install `push-config.sh` into `~/.claude/` (used by the auto-push hook)
+3. Create directories if needed (`~/home/.claude/`, etc.)
+4. Install `push-config.sh` into `~/.claude/` (used by the auto-push hook)
 
 ## Usage
 
 ```bash
-# Show diff between repo and ~/.claude/
+# Show diff between repo and local
 ./sync.sh diff
 
-# Pull: remote -> ~/.claude/ (also reinstalls push-config.sh)
+# Pull: remote -> local (also reinstalls push-config.sh)
 ./sync.sh pull
 
-# Push: ~/.claude/ -> remote (manual)
+# Push: local -> remote (manual)
 ./sync.sh push
 
 # Check sync status
@@ -48,8 +51,12 @@ The `settings.json` hook triggers `~/.claude/push-config.sh` on every `Write|Edi
 
 ## Adding Files
 
-Add filenames to the `FILES` array in `sync.sh` to include them in sync.
+Add entries to the `SYNC_PAIRS` array in `sync.sh`:
 
 ```bash
-FILES=("CLAUDE.md" "settings.json" "keybindings.json")
+SYNC_PAIRS=(
+    "$CLAUDE_DIR/CLAUDE.md|CLAUDE.md|[global] CLAUDE.md"
+    ...
+    "$HOME_DIR/newfile.json|home/newfile.json|[home] newfile.json"
+)
 ```

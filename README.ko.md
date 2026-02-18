@@ -2,16 +2,18 @@
 
 # claude-config
 
-Claude Code 글로벌 설정을 관리하는 저장소.
+Claude Code 설정을 관리하는 저장소 — 글로벌 + 홈 레벨.
 
-`~/.claude/`에 직접 연결하지 않고, 스크립트를 통해 **파일 복사 방식**으로 동기화한다.
+심볼릭 링크 없이, 스크립트를 통해 **파일 복사 방식**으로 동기화한다.
 
 ## 관리 대상
 
-| 파일 | 용도 |
-|---|---|
-| `CLAUDE.md` | 글로벌 행동 지침 (모든 프로젝트에 적용) |
-| `settings.json` | 모델, 권한, hooks 등 런타임 설정 |
+| 레포 경로 | 로컬 경로 | 용도 |
+|---|---|---|
+| `CLAUDE.md` | `~/.claude/CLAUDE.md` | 글로벌 행동 지침 (모든 프로젝트에 적용) |
+| `settings.json` | `~/.claude/settings.json` | 글로벌 모델, 권한, hooks 설정 |
+| `home/CLAUDE.md` | `~/home/CLAUDE.md` | 홈 레벨 프로젝트 지침 |
+| `home/settings.json` | `~/home/.claude/settings.json` | 홈 레벨 권한 설정 |
 
 ## 새 머신 초기 세팅
 
@@ -22,9 +24,10 @@ cd ~/path/to/claude-config
 ```
 
 `setup` 실행 시:
-1. 관리 대상 파일별로 repo와 `~/.claude/`의 diff 표시
+1. 관리 대상 파일별로 repo와 로컬의 diff 표시
 2. 파일별 덮어쓰기 여부 확인 (기존 파일은 `*.bak`으로 백업)
-3. `push-config.sh`를 `~/.claude/`에 설치 (auto-push hook용)
+3. 필요한 디렉토리 생성 (`~/home/.claude/` 등)
+4. `push-config.sh`를 `~/.claude/`에 설치 (auto-push hook용)
 
 ## 사용법
 
@@ -32,10 +35,10 @@ cd ~/path/to/claude-config
 # 차이점 확인
 ./sync.sh diff
 
-# remote -> ~/.claude/ 반영 (push-config.sh도 재설치)
+# remote -> 로컬 반영 (push-config.sh도 재설치)
 ./sync.sh pull
 
-# ~/.claude/ -> remote 반영 (수동)
+# 로컬 -> remote 반영 (수동)
 ./sync.sh push
 
 # 동기화 상태 확인
@@ -48,8 +51,12 @@ cd ~/path/to/claude-config
 
 ## 파일 추가
 
-`sync.sh` 내 `FILES` 배열에 파일명을 추가하면 동기화 대상에 포함된다.
+`sync.sh` 내 `SYNC_PAIRS` 배열에 항목을 추가하면 동기화 대상에 포함된다.
 
 ```bash
-FILES=("CLAUDE.md" "settings.json" "keybindings.json")
+SYNC_PAIRS=(
+    "$CLAUDE_DIR/CLAUDE.md|CLAUDE.md|[global] CLAUDE.md"
+    ...
+    "$HOME_DIR/newfile.json|home/newfile.json|[home] newfile.json"
+)
 ```
