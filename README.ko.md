@@ -14,6 +14,8 @@ Claude Code 설정을 관리하는 저장소 — 글로벌 + 홈 레벨.
 | `settings.json` | `~/.claude/settings.json` | 글로벌 모델, 권한, hooks 설정 |
 | `home/CLAUDE.md` | `~/home/CLAUDE.md` | 홈 레벨 프로젝트 지침 |
 | `home/settings.json` | `~/home/.claude/settings.json` | 홈 레벨 권한 설정 |
+| `home/python-ecosystem.md` | `~/home/python-ecosystem.md` | Python 생태계 관습 |
+| `home/github-knowledge.md` | `~/home/github-knowledge.md` | GitHub 지식 베이스 |
 
 ## 새 머신 초기 세팅
 

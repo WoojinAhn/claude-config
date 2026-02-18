@@ -14,6 +14,8 @@ Syncs via **file copy** through a script — no symlinks.
 | `settings.json` | `~/.claude/settings.json` | Global model, permissions, hooks settings |
 | `home/CLAUDE.md` | `~/home/CLAUDE.md` | Home-level project instructions |
 | `home/settings.json` | `~/home/.claude/settings.json` | Home-level permissions |
+| `home/python-ecosystem.md` | `~/home/python-ecosystem.md` | Python ecosystem conventions |
+| `home/github-knowledge.md` | `~/home/github-knowledge.md` | GitHub knowledge base |
 
 ## New Machine Setup
 
