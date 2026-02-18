@@ -153,10 +153,13 @@ do_setup() {
         echo "=== $f ==="
         diff --color "$CLAUDE_DIR/$f" "$SCRIPT_DIR/$f" || true
         echo ""
-        read -p "  Overwrite ~/.claude/$f with repo version? [y/N] " answer
+        echo "  [y] Overwrite (backup local as $f.bak)"
+        echo "  [n] Skip"
+        read -p "  Apply repo version? [y/N] " answer
         if [[ "$answer" == "y" || "$answer" == "Y" ]]; then
+            cp "$CLAUDE_DIR/$f" "$CLAUDE_DIR/$f.bak"
             cp "$SCRIPT_DIR/$f" "$CLAUDE_DIR/$f"
-            echo "  $f  [updated]"
+            echo "  $f  [updated, backup: ~/.claude/$f.bak]"
         else
             echo "  $f  [skipped]"
         fi

@@ -23,7 +23,7 @@ cd ~/path/to/claude-config
 
 `setup` will:
 1. Show diff between repo and `~/.claude/` for each managed file
-2. Ask whether to overwrite each file
+2. Ask whether to overwrite each file (local file is backed up as `*.bak`)
 3. Install `push-config.sh` into `~/.claude/` (used by the auto-push hook)
 
 ## Usage

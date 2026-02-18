@@ -23,7 +23,7 @@ cd ~/path/to/claude-config
 
 `setup` 실행 시:
 1. 관리 대상 파일별로 repo와 `~/.claude/`의 diff 표시
-2. 파일별 덮어쓰기 여부 확인
+2. 파일별 덮어쓰기 여부 확인 (기존 파일은 `*.bak`으로 백업)
 3. `push-config.sh`를 `~/.claude/`에 설치 (auto-push hook용)
 
 ## 사용법
