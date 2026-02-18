@@ -14,7 +14,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/Users/a1100521/home/claude-config/sync.sh push",
+            "command": "$HOME/.claude/push-config.sh",
             "async": true
           }
         ]
