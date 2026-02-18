@@ -136,4 +136,3 @@ This file should evolve based on actual usage:
 - When Claude makes a mistake, add specific guidance (preferably with concrete examples)
 - Remove rules that don't help or duplicate the system prompt
 - Keep under 150 lines for optimal effectiveness
-
