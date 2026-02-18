@@ -5,10 +5,13 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 CLAUDE_DIR="$HOME/.claude"
 FILES=("CLAUDE.md" "settings.json")
 
+PUSH_HOOK="push-config.sh"
+
 usage() {
     echo "Usage: $(basename "$0") <command>"
     echo ""
     echo "Commands:"
+    echo "  setup   initial setup: show diff, copy files, install push hook"
     echo "  pull    git pull + copy repo -> ~/.claude/"
     echo "  push    copy ~/.claude/ -> repo + git commit & push"
     echo "  diff    show diff between repo and ~/.claude/"
@@ -34,6 +37,8 @@ do_pull() {
             echo "  $f -> ~/.claude/$f"
         fi
     done
+
+    install_push_hook
     echo "Done."
 }
 
@@ -98,7 +103,71 @@ do_status() {
     done
 }
 
+install_push_hook() {
+    cat > "$CLAUDE_DIR/$PUSH_HOOK" <<SCRIPT
+#!/bin/bash
+set -euo pipefail
+REPO_DIR="$SCRIPT_DIR"
+CLAUDE_DIR="\$HOME/.claude"
+FILES=("CLAUDE.md" "settings.json")
+
+changed=false
+for f in "\${FILES[@]}"; do
+    if [[ -f "\$CLAUDE_DIR/\$f" ]] && ! diff -q "\$CLAUDE_DIR/\$f" "\$REPO_DIR/\$f" &>/dev/null; then
+        cp "\$CLAUDE_DIR/\$f" "\$REPO_DIR/\$f"
+        changed=true
+    fi
+done
+
+if [[ "\$changed" == true ]]; then
+    cd "\$REPO_DIR"
+    git add "\${FILES[@]}"
+    git commit -m "update claude config"
+    git push
+fi
+SCRIPT
+    chmod +x "$CLAUDE_DIR/$PUSH_HOOK"
+    echo "  Installed $PUSH_HOOK -> ~/.claude/$PUSH_HOOK"
+}
+
+do_setup() {
+    check_claude_dir
+
+    for f in "${FILES[@]}"; do
+        if [[ ! -f "$SCRIPT_DIR/$f" ]]; then
+            echo "  $f  [not in repo, skipping]"
+            continue
+        fi
+
+        if [[ ! -f "$CLAUDE_DIR/$f" ]]; then
+            cp "$SCRIPT_DIR/$f" "$CLAUDE_DIR/$f"
+            echo "  $f  [installed]"
+            continue
+        fi
+
+        if diff -q "$CLAUDE_DIR/$f" "$SCRIPT_DIR/$f" &>/dev/null; then
+            echo "  $f  [already in sync]"
+            continue
+        fi
+
+        echo "=== $f ==="
+        diff --color "$CLAUDE_DIR/$f" "$SCRIPT_DIR/$f" || true
+        echo ""
+        read -p "  Overwrite ~/.claude/$f with repo version? [y/N] " answer
+        if [[ "$answer" == "y" || "$answer" == "Y" ]]; then
+            cp "$SCRIPT_DIR/$f" "$CLAUDE_DIR/$f"
+            echo "  $f  [updated]"
+        else
+            echo "  $f  [skipped]"
+        fi
+    done
+
+    install_push_hook
+    echo "Done."
+}
+
 case "${1:-}" in
+    setup)  do_setup ;;
     pull)   do_pull ;;
     push)   do_push ;;
     diff)   do_diff ;;
