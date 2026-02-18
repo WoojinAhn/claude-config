@@ -13,6 +13,8 @@ SYNC_PAIRS=(
     "$CLAUDE_DIR/settings.json|settings.json|[global] settings.json"
     "$HOME_DIR/CLAUDE.md|home/CLAUDE.md|[home] CLAUDE.md"
     "$HOME_DIR/.claude/settings.json|home/settings.json|[home] settings.json"
+    "$HOME_DIR/python-ecosystem.md|home/python-ecosystem.md|[home] python-ecosystem.md"
+    "$HOME_DIR/github-knowledge.md|home/github-knowledge.md|[home] github-knowledge.md"
 )
 
 usage() {
