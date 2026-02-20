@@ -18,3 +18,5 @@
 - PyPI는 하이픈과 언더스코어를 동일하게 취급 (PEP 503 정규화: `-`, `_`, `.` 모두 `-`로 변환)
 - `pip install my-package` → `import my_package` 패턴이 일반적
 - `setup.py`/`pyproject.toml`의 `name`은 하이픈, 실제 소스 디렉토리는 언더스코어
+
+## Test entry (delete me)
