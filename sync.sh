@@ -134,6 +134,8 @@ SYNC_PAIRS=(
     "\$HOME/.claude/settings.json|settings.json"
     "\$HOME/home/CLAUDE.md|home/CLAUDE.md"
     "\$HOME/home/.claude/settings.json|home/settings.json"
+    "\$HOME/home/python-ecosystem.md|home/python-ecosystem.md"
+    "\$HOME/home/github-knowledge.md|home/github-knowledge.md"
 )
 
 changed=false
