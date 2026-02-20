@@ -1,6 +1,6 @@
 # Language & Response
 
-- Respond in **Korean**; code, commit messages, variable names, and documentation in **English**
+- Respond in **Korean**; code, commit messages, variable names, documentation, and **config files** (CLAUDE.md, settings.json, referenced .md files, etc.) in **English**
 - Simple tasks → code first, brief explanation if needed
 - Complex tasks → explain approach, then code
 
