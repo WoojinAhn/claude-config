@@ -8,7 +8,6 @@
       "Bash(brew upgrade:*)"
     ]
   },
-  "model": "opus",
   "hooks": {
     "PostToolUse": [
       {
