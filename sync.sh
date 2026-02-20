@@ -81,7 +81,12 @@ do_push() {
     cd "$SCRIPT_DIR"
     git pull --rebase --quiet 2>/dev/null || true
     git add "${git_add_files[@]}"
-    git commit -m "update claude config"
+    local file_list
+    file_list=$(IFS=', '; echo "${git_add_files[*]}")
+    local diff_stat
+    diff_stat=$(git diff --cached --stat)
+    git commit -m "update claude config: ${file_list}
+${diff_stat}"
     git push
     echo "Done."
 }
@@ -156,7 +161,10 @@ if [[ "\$changed" == true ]]; then
     cd "\$REPO_DIR"
     git pull --rebase --quiet 2>/dev/null || true
     git add "\${git_add_files[@]}"
-    git commit -m "update claude config"
+    file_list=\$(IFS=', '; echo "\${git_add_files[*]}")
+    diff_stat=\$(git diff --cached --stat)
+    git commit -m "update claude config: \${file_list}
+\${diff_stat}"
     git push
 fi
 SCRIPT
