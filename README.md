@@ -14,8 +14,7 @@ Syncs via **file copy** through a script — no symlinks.
 | `settings.json` | `~/.claude/settings.json` | Global model, permissions, hooks settings |
 | `home/CLAUDE.md` | `~/home/CLAUDE.md` | Home-level project instructions |
 | `home/settings.json` | `~/home/.claude/settings.json` | Home-level permissions |
-| `home/python-ecosystem.md` | `~/home/python-ecosystem.md` | Python ecosystem conventions |
-| `home/github-knowledge.md` | `~/home/github-knowledge.md` | GitHub knowledge base |
+| `home/*.md` (auto) | `~/home/*.md` | Knowledge files (auto-discovered, excluding CLAUDE.md) |
 
 ## New Machine Setup
 
@@ -53,12 +52,13 @@ The `settings.json` hook triggers `~/.claude/push-config.sh` on every `Write|Edi
 
 ## Adding Files
 
-Add entries to the `SYNC_PAIRS` array in `sync.sh`:
+- **`~/home/*.md`**: Automatically discovered — just create the file and it will be synced.
+- **Other files**: Add entries to the `SYNC_PAIRS` array in `sync.sh`:
 
 ```bash
 SYNC_PAIRS=(
     "$CLAUDE_DIR/CLAUDE.md|CLAUDE.md|[global] CLAUDE.md"
     ...
-    "$HOME_DIR/newfile.json|home/newfile.json|[home] newfile.json"
+    "$HOME_DIR/.claude/newfile.json|home/newfile.json|[home] newfile.json"
 )
 ```

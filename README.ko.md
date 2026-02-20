@@ -14,8 +14,7 @@ Claude Code 설정을 관리하는 저장소 — 글로벌 + 홈 레벨.
 | `settings.json` | `~/.claude/settings.json` | 글로벌 모델, 권한, hooks 설정 |
 | `home/CLAUDE.md` | `~/home/CLAUDE.md` | 홈 레벨 프로젝트 지침 |
 | `home/settings.json` | `~/home/.claude/settings.json` | 홈 레벨 권한 설정 |
-| `home/python-ecosystem.md` | `~/home/python-ecosystem.md` | Python 생태계 관습 |
-| `home/github-knowledge.md` | `~/home/github-knowledge.md` | GitHub 지식 베이스 |
+| `home/*.md` (자동) | `~/home/*.md` | 지식 파일 (CLAUDE.md 제외, 자동 수집) |
 
 ## 새 머신 초기 세팅
 
@@ -53,12 +52,13 @@ cd ~/path/to/claude-config
 
 ## 파일 추가
 
-`sync.sh` 내 `SYNC_PAIRS` 배열에 항목을 추가하면 동기화 대상에 포함된다.
+- **`~/home/*.md`**: 자동 수집 — 파일만 생성하면 바로 동기화 대상에 포함된다.
+- **그 외 파일**: `sync.sh` 내 `SYNC_PAIRS` 배열에 항목을 추가한다.
 
 ```bash
 SYNC_PAIRS=(
     "$CLAUDE_DIR/CLAUDE.md|CLAUDE.md|[global] CLAUDE.md"
     ...
-    "$HOME_DIR/newfile.json|home/newfile.json|[home] newfile.json"
+    "$HOME_DIR/.claude/newfile.json|home/newfile.json|[home] newfile.json"
 )
 ```
