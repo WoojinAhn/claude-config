@@ -47,6 +47,19 @@ User: "Should we separate this into microservices?"
 
 ---
 
+# Tool & Technology Selection
+
+When making technology decisions (tools, libraries, packages, platforms), investigate objective metrics first:
+- Check quantitative data: GitHub stars, npm downloads, community size, maintainer backing
+- Explore whether a more mainstream alternative exists before recommending a niche option
+- When multiple alternatives exist, present them with comparative metrics
+
+**Example:**
+❌ Recommend the first tool discovered
+✓ Compare tools serving the same purpose, present with objective metrics (downloads, stars, maintainer)
+
+---
+
 # Scope & Intent
 
 ## Do Exactly What Was Asked
