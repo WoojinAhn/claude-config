@@ -13,9 +13,13 @@ SYNC_PAIRS=(
     "$CLAUDE_DIR/settings.json|settings.json|[global] settings.json"
     "$HOME_DIR/CLAUDE.md|home/CLAUDE.md|[home] CLAUDE.md"
     "$HOME_DIR/.claude/settings.json|home/settings.json|[home] settings.json"
-    "$HOME_DIR/python-ecosystem.md|home/python-ecosystem.md|[home] python-ecosystem.md"
-    "$HOME_DIR/github-knowledge.md|home/github-knowledge.md|[home] github-knowledge.md"
 )
+for md in "$HOME_DIR"/*.md; do
+    [[ ! -f "$md" ]] && continue
+    [[ "$(basename "$md")" == "CLAUDE.md" ]] && continue
+    name="$(basename "$md")"
+    SYNC_PAIRS+=("$md|home/$name|[home] $name")
+done
 
 usage() {
     echo "Usage: $(basename "$0") <command>"
@@ -133,15 +137,20 @@ install_push_hook() {
 #!/bin/bash
 set -euo pipefail
 REPO_DIR="$SCRIPT_DIR"
+HOME_DIR="\$HOME/home"
 
 SYNC_PAIRS=(
     "\$HOME/.claude/CLAUDE.md|CLAUDE.md"
     "\$HOME/.claude/settings.json|settings.json"
     "\$HOME/home/CLAUDE.md|home/CLAUDE.md"
     "\$HOME/home/.claude/settings.json|home/settings.json"
-    "\$HOME/home/python-ecosystem.md|home/python-ecosystem.md"
-    "\$HOME/home/github-knowledge.md|home/github-knowledge.md"
 )
+for md in "\$HOME_DIR"/*.md; do
+    [[ ! -f "\$md" ]] && continue
+    [[ "\$(basename "\$md")" == "CLAUDE.md" ]] && continue
+    name="\$(basename "\$md")"
+    SYNC_PAIRS+=("\$md|home/\$name")
+done
 
 changed=false
 git_add_files=()
