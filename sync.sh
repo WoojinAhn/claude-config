@@ -41,6 +41,13 @@ check_claude_dir() {
 
 do_pull() {
     cd "$SCRIPT_DIR"
+    git fetch --quiet
+
+    if [[ "$(git rev-parse HEAD)" == "$(git rev-parse @{u})" ]]; then
+        echo "Already up to date."
+        return 0
+    fi
+
     echo "Pulling from remote..."
     git pull --rebase
 

@@ -46,9 +46,15 @@ cd ~/path/to/claude-config
 ./sync.sh status
 ```
 
-## Auto-Push
+## Auto-Sync
 
-`settings.json`의 hook이 Claude Code 세션에서 `Write|Edit` 시마다 `~/.claude/push-config.sh`를 실행한다. 이 스크립트는 `setup` 시 repo 경로가 주입되어 생성되므로, 커밋된 파일에 하드코딩된 경로가 없다.
+### Auto-Pull (SessionStart)
+
+새 세션 시작 시 `SessionStart` hook이 `sync.sh pull`을 실행한다. remote를 fetch한 뒤 변경이 있을 때만 pull — 변경 없으면 no-op.
+
+### Auto-Push (PostToolUse)
+
+`PostToolUse` hook이 Claude Code 세션에서 `Write|Edit` 시마다 `~/.claude/push-config.sh`를 실행한다. 이 스크립트는 `setup` 시 repo 경로가 주입되어 생성되므로, 커밋된 파일에 하드코딩된 경로가 없다.
 
 ## 파일 추가
 
