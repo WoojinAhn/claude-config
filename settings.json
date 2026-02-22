@@ -28,7 +28,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "if [ -n \"$SSH_CONNECTION\" ]; then curl -s -d \"$CLAUDE_NOTIFICATION\" ntfy.sh/woojin-claude-$(hostname -s) > /dev/null; fi",
+            "command": "if [ -n \"$SSH_CONNECTION\" ]; then MSG=$(cat | jq -r '.message // \"Claude Code 알림\"'); curl -s -d \"$MSG\" ntfy.sh/woojin-claude-$(hostname -s) > /dev/null; fi",
             "timeout": 5
           }
         ]
