@@ -33,6 +33,17 @@
           }
         ]
       }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ -n \"$SSH_CONNECTION\" ]; then curl -s -d \"Claude Code 응답 완료\" ntfy.sh/woojin-claude-$(hostname -s) > /dev/null; fi",
+            "timeout": 5
+          }
+        ]
+      }
     ]
   }
 }
