@@ -48,6 +48,23 @@ cd ~/path/to/claude-config
 
 ## Auto-Sync
 
+```mermaid
+sequenceDiagram
+    participant A as Machine A
+    participant R as GitHub Remote
+    participant B as Machine B
+
+    Note over A: Claude Code session<br/>(Write/Edit happens)
+    A->>A: PostToolUse hook triggers<br/>push-config.sh
+    A->>A: Detect changed files<br/>(diff local vs repo)
+    A->>R: git commit & push
+
+    Note over B: New Claude Code session starts
+    B->>R: SessionStart hook triggers<br/>sync.sh pull → git fetch
+    R->>B: Changes detected → git pull
+    B->>B: Copy repo files → local paths
+```
+
 ### Auto-Pull (SessionStart)
 
 On new session startup, the `SessionStart` hook runs `sync.sh pull`. It fetches from remote and only pulls if there are changes — no-op otherwise.

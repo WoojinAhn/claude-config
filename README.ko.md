@@ -48,6 +48,23 @@ cd ~/path/to/claude-config
 
 ## Auto-Sync
 
+```mermaid
+sequenceDiagram
+    participant A as 장비 A
+    participant R as GitHub Remote
+    participant B as 장비 B
+
+    Note over A: Claude Code 세션<br/>(Write/Edit 발생)
+    A->>A: PostToolUse hook →<br/>push-config.sh 실행
+    A->>A: 변경된 파일 감지<br/>(local vs repo diff)
+    A->>R: git commit & push
+
+    Note over B: 새 Claude Code 세션 시작
+    B->>R: SessionStart hook →<br/>sync.sh pull → git fetch
+    R->>B: 변경 감지 → git pull
+    B->>B: repo 파일 → 로컬 경로 복사
+```
+
 ### Auto-Pull (SessionStart)
 
 새 세션 시작 시 `SessionStart` hook이 `sync.sh pull`을 실행한다. remote를 fetch한 뒤 변경이 있을 때만 pull — 변경 없으면 no-op.
