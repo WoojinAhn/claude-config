@@ -141,9 +141,20 @@ This global file covers behavioral principles that apply across all projects.
 
 ---
 
+# Knowledge Storage Strategy
+
+| Storage | Auto-loaded | Scope | Best for | Size limit |
+|---|---|---|---|---|
+| **Global CLAUDE.md** | Yes | All projects | Behavioral principles, response style | ~170 lines |
+| **Project CLAUDE.md** | Yes | Single repo | Build, architecture, conventions, doc references | Reasonable |
+| **Project auto memory** | `MEMORY.md` only | Single repo | Cross-session learnings (patterns, mistakes) | 200 lines |
+| **Referenced docs** (`docs/*.md`) | No (read on demand) | Single repo | Detailed knowledge — reference from CLAUDE.md | No limit |
+
+---
+
 # Continuous Improvement
 
 This file should evolve based on actual usage:
 - When Claude makes a mistake, add specific guidance (preferably with concrete examples)
 - Remove rules that don't help or duplicate the system prompt
-- Keep under 150 lines for optimal effectiveness
+- Keep under 170 lines for optimal effectiveness
