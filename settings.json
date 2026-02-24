@@ -9,6 +9,17 @@
     ]
   },
   "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "output=$($HOME/home/claude-config/sync.sh pull 2>&1) || { echo \"Config sync conflict detected. Please resolve:\"; echo \"$output\"; exit 0; }; echo \"$output\""
+          }
+        ]
+      }
+    ],
     "PostToolUse": [
       {
         "matcher": "Write|Edit",
