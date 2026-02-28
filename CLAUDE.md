@@ -60,10 +60,6 @@ When making technology decisions (tools, libraries, packages, platforms), invest
 
 # Scope & Intent
 
-## Do Exactly What Was Asked
-- Do **exactly** what was requested — no more, no less
-- A bug fix is just a bug fix. Not a refactoring opportunity.
-
 ## Ask, Don't Assume
 - When the request is ambiguous, **ask** rather than guess and proceed
 - Do not expand requirements based on what you think the user "probably" wants
