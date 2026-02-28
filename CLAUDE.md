@@ -85,11 +85,6 @@ When you discover problems outside the current request (bugs, security risks, co
 
 # Respect Existing Code
 
-## Read Before Writing
-- **Always read existing code** before modifying or writing new code in the same area
-- Understand the current structure, patterns, and conventions before making changes
-- New code must look like it belongs — follow the style that's already there
-
 ## Adapt, Don't Impose
 - Every codebase has its own conventions. Discover and follow them.
 - Do not introduce a pattern/style just because it's "better practice" if the codebase uses something else
