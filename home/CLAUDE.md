@@ -14,6 +14,10 @@ Python 작업 중 생태계 관습(네이밍, 패키징, 프로젝트 구조, �
 
 GitHub 관련 문화, 제공 서비스, 기능(Actions, Secrets, Fork 등)을 학습하면 `github-knowledge.md`에 기록할 것. 기존 항목과 중복되지 않도록 먼저 확인 후 추가.
 
+## Swift 지식
+
+Swift/SwiftUI 작업 중 플랫폼 제약, 동시성 패턴 등 경험적 지식을 발견하면 `swift-knowledge.md`에 기록할 것. 기존 항목과 중복되지 않도록 먼저 확인 후 추가.
+
 ## API Keys
 
 API 키 정보는 `.claude/keys.md` 파일 참조 (gitignore 처리됨).
