@@ -69,9 +69,50 @@ sequenceDiagram
 
 새 세션 시작 시 `SessionStart` hook이 `sync.sh pull`을 실행한다. remote를 fetch한 뒤 새 커밋이 있으면 pull하고, **git 변경 유무와 관계없이 항상 repo → 로컬 파일 복사를 수행**한다 — 로컬 파일이 삭제됐을 때도 자동 복구된다.
 
+```mermaid
+flowchart TD
+    A([sync.sh pull]) --> B[git fetch]
+    B --> C{새 커밋 있음?}
+    C -- Yes --> D[git pull --rebase]
+    C -- No --> E[git pull 생략]
+    D --> F[SYNC_PAIRS 구성]
+    E --> F
+    F --> G[각 pair: repo 파일 존재?]
+    G -- Yes --> H{로컬과 diff?}
+    H -- 변경됨 / 누락 --> I[cp repo → local]
+    H -- 동일 --> J[Skip]
+    G -- No --> J
+    I --> K([Done])
+    J --> K
+```
+
 ### Auto-Push (PostToolUse)
 
 `PostToolUse` hook이 Claude Code 세션에서 `Write|Edit` 시마다 `~/.claude/push-config.sh`를 실행한다. 이 스크립트는 `setup` 시 repo 경로가 주입되어 생성되므로, 커밋된 파일에 하드코딩된 경로가 없다.
+
+```mermaid
+flowchart TD
+    A([PostToolUse: Write/Edit]) --> B[push-config.sh]
+    B --> C[SYNC_PAIRS 구성]
+    C --> D[각 pair: local vs repo diff]
+    D --> E{변경됨?}
+    E -- Yes --> F[cp local → repo]
+    F --> G[git add]
+    E -- No --> H[Skip]
+    G --> I[git commit & push]
+    H --> J([Done])
+    I --> J
+```
+
+### SYNC_PAIRS 구성 방식
+
+```mermaid
+flowchart LR
+    A[정적 항목\nCLAUDE.md, settings.json] --> D[SYNC_PAIRS]
+    B[~/home/*.md\n로컬 파일] --> C{중복 제거}
+    E[repo/home/*.md\n레포 파일] --> C
+    C --> D
+```
 
 ## 파일 추가
 
