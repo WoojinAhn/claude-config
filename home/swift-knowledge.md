@@ -6,6 +6,12 @@
 - 커스텀 렌더링이 필요하면 NSImage로 직접 그린 뒤 `Image(nsImage:)`로 전달해야 함
 - `Text`는 표시되지만 폰트 크기 제어 불가 — NSAttributedString으로 NSImage에 직접 draw 필요
 
+## MenuBarExtra — Keyboard Focus for Child Windows
+
+- `MenuBarExtra` 앱은 `NSApplication.activationPolicy`가 `.accessory`라서, 별도 NSWindow(예: WKWebView 로그인 창)를 열어도 키보드 포커스를 받지 못함
+- 해결: 창 열기 전 `NSApp.setActivationPolicy(.regular)`, 창 닫을 때 `.accessory`로 복원
+- `kSecUseDataProtectionKeychain: true`로 저장된 Keychain 항목은 해당 앱의 코드 서명 컨텍스트에서만 접근 가능 — `security` CLI로는 읽을 수 없음
+
 ## Swift 6 Strict Concurrency
 
 - `@MainActor` 클래스의 static 순수 함수는 `nonisolated` 명시해야 테스트에서 동기 호출 가능
