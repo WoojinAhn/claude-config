@@ -78,6 +78,7 @@ do_push() {
     check_claude_dir
     local changed=false
     local git_add_files=()
+    local git_rm_files=()
 
     for pair in "${SYNC_PAIRS[@]}"; do
         IFS='|' read -r local_path repo_path label <<< "$pair"
@@ -92,6 +93,18 @@ do_push() {
         fi
     done
 
+    # Detect deletions: repo home/*.md files that no longer exist locally
+    for repo_file in "$SCRIPT_DIR"/home/*.md; do
+        [[ ! -f "$repo_file" ]] && continue
+        name="$(basename "$repo_file")"
+        [[ "$name" == "CLAUDE.md" ]] && continue
+        if [[ ! -f "$HOME_DIR/$name" ]]; then
+            echo "  [home] $name -> deleted"
+            git_rm_files+=("home/$name")
+            changed=true
+        fi
+    done
+
     if [[ "$changed" == false ]]; then
         echo "No changes to push."
         exit 0
@@ -99,9 +112,13 @@ do_push() {
 
     cd "$SCRIPT_DIR"
     git pull --rebase --quiet 2>/dev/null || true
-    git add "${git_add_files[@]}"
+    [[ ${#git_rm_files[@]} -gt 0 ]] && git rm "${git_rm_files[@]}"
+    [[ ${#git_add_files[@]} -gt 0 ]] && git add "${git_add_files[@]}"
+    local all_files=()
+    [[ ${#git_add_files[@]} -gt 0 ]] && all_files+=("${git_add_files[@]}")
+    [[ ${#git_rm_files[@]} -gt 0 ]] && all_files+=("${git_rm_files[@]}")
     local file_list
-    file_list=$(IFS=', '; echo "${git_add_files[*]}")
+    file_list=$(IFS=', '; echo "${all_files[*]}")
     local diff_stat
     diff_stat=$(git diff --cached --stat)
     git commit -m "update claude config: ${file_list}
@@ -173,6 +190,7 @@ unset _seen_md
 
 changed=false
 git_add_files=()
+git_rm_files=()
 for pair in "\${SYNC_PAIRS[@]}"; do
     IFS='|' read -r local_path repo_path <<< "\$pair"
     if [[ -f "\$local_path" ]]; then
@@ -185,11 +203,26 @@ for pair in "\${SYNC_PAIRS[@]}"; do
     fi
 done
 
+# Detect deletions: repo home/*.md files that no longer exist locally
+for repo_file in "\$REPO_DIR"/home/*.md; do
+    [[ ! -f "\$repo_file" ]] && continue
+    name="\$(basename "\$repo_file")"
+    [[ "\$name" == "CLAUDE.md" ]] && continue
+    if [[ ! -f "\$HOME_DIR/\$name" ]]; then
+        git_rm_files+=("home/\$name")
+        changed=true
+    fi
+done
+
 if [[ "\$changed" == true ]]; then
     cd "\$REPO_DIR"
     git pull --rebase --quiet 2>/dev/null || true
-    git add "\${git_add_files[@]}"
-    file_list=\$(IFS=', '; echo "\${git_add_files[*]}")
+    [[ \${#git_rm_files[@]} -gt 0 ]] && git rm "\${git_rm_files[@]}"
+    [[ \${#git_add_files[@]} -gt 0 ]] && git add "\${git_add_files[@]}"
+    all_files=()
+    [[ \${#git_add_files[@]} -gt 0 ]] && all_files+=("\${git_add_files[@]}")
+    [[ \${#git_rm_files[@]} -gt 0 ]] && all_files+=("\${git_rm_files[@]}")
+    file_list=\$(IFS=', '; echo "\${all_files[*]}")
     diff_stat=\$(git diff --cached --stat)
     git commit -m "update claude config: \${file_list}
 \${diff_stat}"

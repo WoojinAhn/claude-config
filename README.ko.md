@@ -88,7 +88,7 @@ flowchart TD
 
 ### Auto-Push (PostToolUse)
 
-`PostToolUse` hook이 Claude Code 세션에서 `Write|Edit` 시마다 `~/.claude/push-config.sh`를 실행한다. 이 스크립트는 `setup` 시 repo 경로가 주입되어 생성되므로, 커밋된 파일에 하드코딩된 경로가 없다.
+`PostToolUse` hook이 Claude Code 세션에서 `Write|Edit` 시마다 `~/.claude/push-config.sh`를 실행한다. 이 스크립트는 `setup` 시 repo 경로가 주입되어 생성되므로, 커밋된 파일에 하드코딩된 경로가 없다. 로컬에서 삭제된 `home/*.md` 파일도 감지하여 레포에서 제거한다.
 
 ```mermaid
 flowchart TD
@@ -99,7 +99,12 @@ flowchart TD
     E -- Yes --> F[cp local → repo]
     F --> G[git add]
     E -- No --> H[Skip]
+    C --> D2[각 repo home/*.md]
+    D2 --> E2{로컬에서 삭제됨?}
+    E2 -- Yes --> F2[git rm]
+    E2 -- No --> H
     G --> I[git commit & push]
+    F2 --> I
     H --> J([Done])
     I --> J
 ```
