@@ -14,12 +14,16 @@ SYNC_PAIRS=(
     "$HOME_DIR/CLAUDE.md|home/CLAUDE.md|[home] CLAUDE.md"
     "$HOME_DIR/.claude/settings.json|home/settings.json|[home] settings.json"
 )
-for md in "$HOME_DIR"/*.md; do
+_seen_md=""
+for md in "$HOME_DIR"/*.md "$SCRIPT_DIR/home"/*.md; do
     [[ ! -f "$md" ]] && continue
-    [[ "$(basename "$md")" == "CLAUDE.md" ]] && continue
     name="$(basename "$md")"
-    SYNC_PAIRS+=("$md|home/$name|[home] $name")
+    [[ "$name" == "CLAUDE.md" ]] && continue
+    [[ "$_seen_md" == *"|$name|"* ]] && continue
+    _seen_md="$_seen_md|$name|"
+    SYNC_PAIRS+=("$HOME_DIR/$name|home/$name|[home] $name")
 done
+unset _seen_md
 
 usage() {
     echo "Usage: $(basename "$0") <command>"
@@ -44,23 +48,27 @@ do_pull() {
     git fetch --quiet
 
     if [[ "$(git rev-parse HEAD)" == "$(git rev-parse @{u})" ]]; then
-        echo "Already up to date."
-        return 0
+        echo "Git already up to date. Syncing local files..."
+    else
+        echo "Pulling from remote..."
+        git pull --rebase
     fi
-
-    echo "Pulling from remote..."
-    git pull --rebase
 
     check_claude_dir
 
+    local copied=false
     for pair in "${SYNC_PAIRS[@]}"; do
         IFS='|' read -r local_path repo_path label <<< "$pair"
         if [[ -f "$SCRIPT_DIR/$repo_path" ]]; then
-            mkdir -p "$(dirname "$local_path")"
-            cp "$SCRIPT_DIR/$repo_path" "$local_path"
-            echo "  $label -> $local_path"
+            if ! diff -q "$local_path" "$SCRIPT_DIR/$repo_path" &>/dev/null 2>&1; then
+                mkdir -p "$(dirname "$local_path")"
+                cp "$SCRIPT_DIR/$repo_path" "$local_path"
+                echo "  $label -> $local_path"
+                copied=true
+            fi
         fi
     done
+    [[ "$copied" == false ]] && echo "  All files already in sync."
 
     install_push_hook
     echo "Done."
@@ -152,12 +160,16 @@ SYNC_PAIRS=(
     "\$HOME/home/CLAUDE.md|home/CLAUDE.md"
     "\$HOME/home/.claude/settings.json|home/settings.json"
 )
-for md in "\$HOME_DIR"/*.md; do
+_seen_md=""
+for md in "\$HOME_DIR"/*.md "\$REPO_DIR/home"/*.md; do
     [[ ! -f "\$md" ]] && continue
-    [[ "\$(basename "\$md")" == "CLAUDE.md" ]] && continue
     name="\$(basename "\$md")"
-    SYNC_PAIRS+=("\$md|home/\$name")
+    [[ "\$name" == "CLAUDE.md" ]] && continue
+    [[ "\$_seen_md" == *"|\$name|"* ]] && continue
+    _seen_md="\$_seen_md|\$name|"
+    SYNC_PAIRS+=("\$HOME_DIR/\$name|home/\$name")
 done
+unset _seen_md
 
 changed=false
 git_add_files=()
