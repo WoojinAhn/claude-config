@@ -67,7 +67,7 @@ sequenceDiagram
 
 ### Auto-Pull (SessionStart)
 
-새 세션 시작 시 `SessionStart` hook이 `sync.sh pull`을 실행한다. remote를 fetch한 뒤 변경이 있을 때만 pull — 변경 없으면 no-op.
+새 세션 시작 시 `SessionStart` hook이 `sync.sh pull`을 실행한다. remote를 fetch한 뒤 새 커밋이 있으면 pull하고, **git 변경 유무와 관계없이 항상 repo → 로컬 파일 복사를 수행**한다 — 로컬 파일이 삭제됐을 때도 자동 복구된다.
 
 ### Auto-Push (PostToolUse)
 
@@ -75,7 +75,7 @@ sequenceDiagram
 
 ## 파일 추가
 
-- **`~/home/*.md`**: 자동 수집 — 파일만 생성하면 바로 동기화 대상에 포함된다.
+- **`~/home/*.md`**: 로컬(`~/home/`)과 레포(`home/`) 양쪽을 자동 수집 — 어느 쪽에 파일을 추가해도 자동으로 감지된다.
 - **그 외 파일**: `sync.sh` 내 `SYNC_PAIRS` 배열에 항목을 추가한다.
 
 ```bash

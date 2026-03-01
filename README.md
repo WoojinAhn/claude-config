@@ -67,7 +67,7 @@ sequenceDiagram
 
 ### Auto-Pull (SessionStart)
 
-On new session startup, the `SessionStart` hook runs `sync.sh pull`. It fetches from remote and only pulls if there are changes — no-op otherwise.
+On new session startup, the `SessionStart` hook runs `sync.sh pull`. It fetches from remote, pulls if there are new commits, and **always copies repo files to local** — so missing local files are restored even if git is already up to date.
 
 ### Auto-Push (PostToolUse)
 
@@ -75,7 +75,7 @@ The `PostToolUse` hook triggers `~/.claude/push-config.sh` on every `Write|Edit`
 
 ## Adding Files
 
-- **`~/home/*.md`**: Automatically discovered — just create the file and it will be synced.
+- **`~/home/*.md`**: Automatically discovered from both local (`~/home/`) and repo (`home/`) — files added to either side are picked up automatically.
 - **Other files**: Add entries to the `SYNC_PAIRS` array in `sync.sh`:
 
 ```bash
