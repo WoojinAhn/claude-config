@@ -12,6 +12,13 @@
 - 해결: 창 열기 전 `NSApp.setActivationPolicy(.regular)`, 창 닫을 때 `.accessory`로 복원
 - `kSecUseDataProtectionKeychain: true`로 저장된 Keychain 항목은 해당 앱의 코드 서명 컨텍스트에서만 접근 가능 — `security` CLI로는 읽을 수 없음
 
+## Keychain — Data Protection vs Standard
+
+- `kSecUseDataProtectionKeychain: true`는 ad-hoc 서명(`codesign -s -`) 앱에서 **-34018 (errSecMissingEntitlement)** 에러 발생 — 저장 실패
+- Data Protection Keychain은 proper provisioning profile + entitlements가 필요 (Developer ID 또는 App Store 서명)
+- ad-hoc 서명 앱에서는 `kSecUseDataProtectionKeychain` 제거 → standard macOS Keychain 사용
+- standard Keychain도 service/account 기반으로 앱별 격리 가능, 실용적으로 충분
+
 ## Swift 6 Strict Concurrency
 
 - `@MainActor` 클래스의 static 순수 함수는 `nonisolated` 명시해야 테스트에서 동기 호출 가능
