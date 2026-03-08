@@ -1,4 +1,7 @@
 {
+  "env": {
+    "CLAUDE_CODE_DISABLE_TERMINAL_TITLE": "1"
+  },
   "permissions": {
     "allow": [
       "Bash(source venv/bin/activate)",
@@ -45,10 +48,8 @@
       }
     ]
   },
-  "env": {
-    "CLAUDE_CODE_DISABLE_TERMINAL_TITLE": "1"
-  },
   "enabledPlugins": {
-    "swift-lsp@claude-plugins-official": true
+    "swift-lsp@claude-plugins-official": true,
+    "frontend-design@claude-plugins-official": true
   }
 }
