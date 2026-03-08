@@ -22,6 +22,10 @@ Swift/SwiftUI 작업 중 플랫폼 제약, 동시성 패턴 등 경험적 지식
 
 Next.js/TypeScript 작업 중 프레임워크 관례, 패턴 등 경험적 지식을 발견하면 `nextjs-knowledge.md`에 기록할 것. 기존 항목과 중복되지 않도록 먼저 확인 후 추가.
 
+## Terminal Title
+
+첫 파일 수정(Edit/Write) 후 또는 10번째 응답 중 먼저 오는 시점에 `/terminal-title` 스킬을 호출하여 터미널 제목을 설정할 것. 작업 주제가 크게 바뀌면 재호출.
+
 ## API Keys
 
 API 키 정보는 `.claude/keys.md` 파일 참조 (gitignore 처리됨).
