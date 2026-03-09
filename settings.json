@@ -30,6 +30,16 @@
             "async": true
           }
         ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/home/tab-labeler/apply-title.sh",
+            "async": true
+          }
+        ]
       }
     ],
     "Notification": [
