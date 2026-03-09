@@ -56,7 +56,8 @@
     ]
   },
   "env": {
-    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "true"
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "true",
+    "CLAUDE_CODE_DISABLE_TERMINAL_TITLE": "1"
   },
   "enabledPlugins": {
     "swift-lsp@claude-plugins-official": true,
