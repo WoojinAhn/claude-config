@@ -30,3 +30,10 @@
 - **레포명**: Apple은 kebab-case + `swift-` prefix (`swift-log`), 커뮤니티는 PascalCase (`Alamofire`) — 둘 다 유효
 - **Package name과 레포명**: 일치시키면 편리하지만 필수 아님. Apple은 `swift-log`(레포) = `"swift-log"`(Package name) ≠ `Logging`(product name)
 - **product name (import 대상)**: PascalCase가 사실상 강제 (`import Logging`, `import NIO`)
+
+## macOS App Release Packaging
+
+- `swift build -c release` + 수동 `.app` 번들 조립 방식이면, 릴리스 zip에 소스/README/테스트 등 불필요한 파일이 자동 배제됨
+- `.app` 번들에 필요한 것만 명시적으로 복사하는 구조 (executable, icon, Info.plist)이므로 소스 전체가 혼입될 구조적 가능성 없음
+- `ditto -c -k --keepParent App.app output.zip`으로 .app → .zip 생성
+- Xcode archive와 달리 SPM CLI 빌드는 번들을 자동 생성하지 않으므로, 쉘 스크립트로 직접 조립해야 함
