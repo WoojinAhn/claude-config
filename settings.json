@@ -77,5 +77,6 @@
     "episodic-memory@superpowers-marketplace": true,
     "double-shot-latte@superpowers-marketplace": true
   },
-  "skipDangerousModePermissionPrompt": true
+  "skipDangerousModePermissionPrompt": true,
+  "effortLevel": "high"
 }
