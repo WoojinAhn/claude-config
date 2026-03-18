@@ -78,6 +78,5 @@
     "double-shot-latte@superpowers-marketplace": true
   },
   "effortLevel": "high",
-  "skipDangerousModePermissionPrompt": true,
-  "model": "sonnet"
+  "skipDangerousModePermissionPrompt": true
 }
