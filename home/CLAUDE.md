@@ -22,6 +22,10 @@ Swift/SwiftUI 작업 중 플랫폼 제약, 동시성 패턴 등 경험적 지식
 
 Next.js/TypeScript 작업 중 프레임워크 관례, 패턴 등 경험적 지식을 발견하면 `nextjs-knowledge.md`에 기록할 것. 기존 항목과 중복되지 않도록 먼저 확인 후 추가.
 
+## Claude Code Skills/Commands 지식
+
+Claude Code 스킬/커맨드 저작 중 발견한 경험적 지식(사용 가능한 도구, UI 패턴, frontmatter, cmux 연동 등)을 `claude-code-skills-knowledge.md`에 기록할 것. 기존 항목과 중복되지 않도록 먼저 확인 후 추가.
+
 ## UI/Frontend Workflow
 
 - CSS/레이아웃 수정 시 **반드시 Playwright MCP 스크린샷으로 결과 확인 후 커밋**. 추측만으로 CSS를 수정하지 말 것.
