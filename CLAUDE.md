@@ -31,6 +31,7 @@ User: "Spring @Transactional is always propagated to private methods"
 
 - For questions about tools, libraries, or services where current state matters (versions, availability, installation, pricing), **call the WebSearch tool** before answering. Do not guess from training data.
 - Especially when the user asks about installing, comparing, or choosing external tools — search first, answer second.
+- When suggesting CLI commands/subcommands/flags, **run `--help` first** to verify they exist in the installed version. Do not guess from search results or training data alone.
 
 ---
 
