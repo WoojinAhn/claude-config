@@ -19,6 +19,10 @@
           {
             "type": "command",
             "command": "output=$($HOME/home/claude-config/sync.sh pull 2>&1) || { echo \"Config sync conflict detected. Please resolve:\"; echo \"$output\"; exit 0; }; echo \"$output\""
+          },
+          {
+            "type": "command",
+            "command": "find $HOME/.claude/plugins -name '*.sh' ! -perm -u+x -exec chmod +x {} +"
           }
         ]
       }
