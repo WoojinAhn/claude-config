@@ -18,3 +18,42 @@
 - PyPI는 하이픈과 언더스코어를 동일하게 취급 (PEP 503 정규화: `-`, `_`, `.` 모두 `-`로 변환)
 - `pip install my-package` → `import my_package` 패턴이 일반적
 - `setup.py`/`pyproject.toml`의 `name`은 하이픈, 실제 소스 디렉토리는 언더스코어
+
+---
+
+## PyPI 발행 vs 로컬 패키징
+
+**날짜:** 2026-03-30
+
+| 행위 | 하는 일 | 결과 |
+|------|---------|------|
+| `pyproject.toml` 작성 | 패키지 메타데이터 선언 | 로컬 파일일 뿐, 아무 일도 안 일어남 |
+| `pip install -e .` | 로컬 개발용 설치 | 현재 머신에서만 import/CLI 사용 가능 |
+| `pipx install .` | CLI 도구를 격리 venv에 설치 | 현재 머신 PATH에 명령어 등록 |
+| `twine upload dist/*` | PyPI 서버에 업로드 | 전 세계 누구나 `pip install 패키지명`으로 설치 가능 |
+
+- `pyproject.toml`에 URL/classifiers를 적는 것 = 사전 메타데이터 준비. PyPI 발행과는 별개
+- PyPI는 품질 심사 없음. 계정만 있으면 누구나 발행 가능
+- GitHub Actions로 git tag push 시 자동 발행도 가능
+
+---
+
+## PEP 668: 시스템 Python pip 제한
+
+**날짜:** 2026-03-30
+
+- Python 3.12+부터 homebrew 등 시스템 Python에 `pip install`이 기본 차단됨
+- `--break-system-packages` 플래그로 우회 가능하나 비권장
+- 해결 방법: `venv`, `pipx`, 또는 프로젝트별 가상환경 사용
+
+---
+
+## pipx: CLI 도구 배포/설치
+
+**날짜:** 2026-03-30
+
+- Python CLI 도구를 격리된 venv에 설치하되 명령어만 시스템 PATH에 노출
+- 소비자가 Python 환경을 신경 쓸 필요 없이 CLI 사용 가능
+- `pipx install .` (로컬), `pipx install git+https://...` (GitHub), `pipx install 패키지명` (PyPI)
+- `pyproject.toml`의 `[project.scripts]` entry point 필요
+- 모듈 import는 불가 — CLI 전용. import가 필요하면 `pip install -e .`
