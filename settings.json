@@ -79,6 +79,6 @@
     "claude-code-setup@claude-plugins-official": true,
     "pr-review-toolkit@claude-plugins-official": true
   },
-  "skipDangerousModePermissionPrompt": true,
-  "effortLevel": "high"
+  "effortLevel": "high",
+  "skipDangerousModePermissionPrompt": true
 }
