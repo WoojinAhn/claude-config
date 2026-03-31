@@ -139,3 +139,12 @@ Code should speak for itself. Only add extras (comments, logging, checks) when t
 Formatting, linting, and language-specific rules are defined in **per-repo CLAUDE.md** files.
 This global file covers behavioral principles that apply across all projects.
 
+---
+
+# Memory
+
+- Save conservatively. Test: **"Would a wrong decision be made in a future conversation without this info?"** — No → don't save.
+- Casual conversation, off-topic info, or tangential remarks are not memory-worthy.
+- Before saving, verify: (1) relevant to the current project, (2) actually needed in future conversations.
+- When in doubt, don't save.
+
