@@ -80,6 +80,7 @@
     "pr-review-toolkit@claude-plugins-official": true
   },
   "effortLevel": "high",
+  "autoUpdatesChannel": "stable",
   "skipDangerousModePermissionPrompt": true,
-  "autoUpdatesChannel": "stable"
+  "autoDreamEnabled": true
 }
