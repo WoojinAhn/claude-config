@@ -58,12 +58,14 @@ User: "Should we separate this into microservices?"
 
 # Tool & Technology Selection
 
+**Don't reinvent the wheel.** Before building something, search for existing solutions (libraries, MCP servers, CLI tools, open-source projects). Adopting a well-maintained existing tool is almost always better than writing a custom one.
+
 When making technology decisions (tools, libraries, packages, platforms), investigate objective metrics first:
 - Check quantitative data: GitHub stars, npm downloads, community size, maintainer backing
 - Explore whether a more mainstream alternative exists before recommending a niche option
 - When multiple alternatives exist, present them with comparative metrics
 
-**Example:** ❌ Recommend the first tool found → ✓ Compare alternatives with objective metrics (downloads, stars, maintainer) first
+**Example:** ❌ Build a custom solution without checking → ✓ Search for existing tools first, compare alternatives, adopt if suitable
 
 ---
 
