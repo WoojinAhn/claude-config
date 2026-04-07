@@ -80,7 +80,7 @@
     "ralph-loop@claude-plugins-official": true
   },
   "effortLevel": "high",
-  "autoUpdatesChannel": "stable",
+  "autoUpdatesChannel": "latest",
   "autoDreamEnabled": true,
   "skipDangerousModePermissionPrompt": true
 }
