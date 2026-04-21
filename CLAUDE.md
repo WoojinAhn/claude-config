@@ -150,3 +150,4 @@ This global file covers behavioral principles that apply across all projects.
 - Before saving, verify: (1) relevant to the current project, (2) actually needed in future conversations.
 - When in doubt, don't save.
 
+@RTK.md
