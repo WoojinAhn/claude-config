@@ -143,6 +143,18 @@ This global file covers behavioral principles that apply across all projects.
 
 ---
 
+# Collaboration Preferences
+
+아래는 기본 선호. 상황/명시 지시에 따라 override 가능.
+
+## 작업 수행
+- **PR 생략 가능**: 1인 작업 (팀원 리뷰 불필요) 이 확인되면 `feature/*` → `master` 직접 머지 후 push. PR 강제하지 말 것. 협업/리뷰 필요하다는 신호 (`--draft`, 팀 멘션, 외부 기여 등) 가 있으면 PR 사용.
+
+## 병렬 Agent 작업
+- **문서는 agent 가 건드리지 않음**: 3+ agent 병렬 dispatch 시 `README.md` / `CLAUDE.md` / `API_REFERENCE.md` 는 coordinator 가 최종 일괄 갱신. agent 프롬프트에 명시적 금지 규칙 포함. 세부 규칙 (공유 등록 지점 회피, merge 순서 등) 은 `~/work/CLAUDE.md` 의 "Parallel Agent Dispatch" 섹션 참고.
+
+---
+
 # Memory
 
 - Save conservatively. Test: **"Would a wrong decision be made in a future conversation without this info?"** — No → don't save.
