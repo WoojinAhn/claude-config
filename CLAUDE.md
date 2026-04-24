@@ -141,6 +141,16 @@ Code should speak for itself. Only add extras (comments, logging, checks) when t
 Formatting, linting, and language-specific rules are defined in **per-repo CLAUDE.md** files.
 This global file covers behavioral principles that apply across all projects.
 
+## Terminal Environment — cmux
+Primary terminal is **cmux** (Claude Multiplexer). Detect via `CMUX_WORKSPACE_ID` env var.
+
+When present, the `cmux` CLI unlocks capabilities beyond standard hooks:
+- **Session/workspace control**: spawn new workspaces with pre-run commands, read/send text to other panes, resume sessions programmatically
+- **Sidebar UI**: `set-status`, `set-progress`, `log`, `notify` for surfacing progress without printing to stdout
+- **Built-in browser**: `cmux browser ...` as an alternative to Playwright MCP
+
+Use cmux CLI inside hooks (SessionStart/Stop/etc.) when you need richer feedback than stdout. Command catalog and examples live in `~/home/claude-code-skills-knowledge.md` (§cmux CLI).
+
 ---
 
 # Collaboration Preferences
