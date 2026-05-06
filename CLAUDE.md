@@ -69,6 +69,18 @@ When making technology decisions (tools, libraries, packages, platforms), invest
 
 ---
 
+# Context Hygiene
+
+세션의 컨텍스트는 유한 자원. 토큰 한도 폭발은 단일 큰 파일을 인라인으로 읽거나 누적 도구 출력이 쌓일 때 발생. 멀티 에이전트는 이미 잘 활용 중 — 다음 fallback 룰을 추가:
+
+- **단일 파일 >2000줄**: Read로 인라인 흡수하지 말 것. sub-agent에게 "이 파일에서 X 찾아 요약" 형태로 위임하고 요약만 메인 컨텍스트로 받음
+- **누적 도구 출력 길어지는 추세**: 탐색/조사 단계에서 grep·find·gh 결과가 메인 컨텍스트에 계속 쌓이면, 그 시점부터 sub-agent로 옮겨 결과만 받음
+- **이미 읽은 큰 파일을 다시 읽지 말 것**: Edit는 diff만 보내므로 파일 상태는 harness가 추적함. 검증 목적의 재-Read는 금지
+
+**왜**: 이전 세션 4건이 output token limit으로 회복 불가능 상태가 됨. 회복 비용(세션 재시작)이 위임 비용(sub-agent 1회 호출)보다 압도적으로 큼.
+
+---
+
 # Scope & Intent
 
 ## Ask, Don't Assume
