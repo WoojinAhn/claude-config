@@ -196,4 +196,5 @@ Defaults below; override via situation or explicit instruction.
 - Before saving, verify: (1) relevant to the current project, (2) actually needed in future conversations.
 - When in doubt, don't save.
 
+<!-- Machine-specific imports below: silently skipped where files don't exist (work-only). -->
 @RTK.md
