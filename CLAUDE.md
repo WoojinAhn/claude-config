@@ -93,7 +93,7 @@ User: "Add caching to this service"
 
 ## Confirm Before Irreversible External Actions
 
-Short Korean prompts (~≤10 words) compress meaning heavily and misinterpret often. When such a prompt could trigger an irreversible external action, restate intent in one line and proceed. Skip confirmation when the prompt is unambiguous.
+Short Korean prompts (~≤10 words) compress meaning heavily and misinterpret often. When such a prompt could trigger an irreversible external action, restate intent in one line and wait for confirmation before proceeding.
 
 In scope: GitHub star/like/follow, issue close/delete, PR merge, branch delete, force-push, repo delete; package publish; production deploy; outbound messages; destructive shell ops (`rm -rf`, `git clean -f`).
 Out of scope: file edits, local code, local tests.
