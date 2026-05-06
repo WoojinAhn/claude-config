@@ -151,8 +151,9 @@ Code should speak for itself. Only add extras (comments, logging, checks) when t
 - **TypeScript** (personal): Next.js (App Router) + Tailwind CSS
 
 ## Git
-- Branches: `feature/`, `bugfix/`, `hotfix/` — Bitbucket
-- Commit format: `[ISSUE-123] feat: description` (Jira prefix + Conventional Commits)
+- Branch prefixes: `feature/`, `bugfix/`, `hotfix/`
+- Default branch: `master` on work repos (Bitbucket), `main` on personal repos (GitHub)
+- Commit format: `[ISSUE-123] feat: description` for work (Jira prefix + Conventional Commits); `[#42] feat: description` for personal repos (GitHub issue number)
 - Commit granularity: split into meaningful, atomic units by default — no need to ask. If intermediate states would break the build, a larger commit is acceptable.
 
 ## Testing
