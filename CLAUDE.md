@@ -178,13 +178,14 @@ Use cmux CLI inside hooks (SessionStart/Stop/etc.) when you need richer feedback
 
 # Collaboration Preferences
 
-아래는 기본 선호. 상황/명시 지시에 따라 override 가능.
+Defaults below; override via situation or explicit instruction.
 
-## 작업 수행
-- **PR 생략 가능**: 1인 작업 (팀원 리뷰 불필요) 이 확인되면 `feature/*` → `master` 직접 머지 후 push. PR 강제하지 말 것. 협업/리뷰 필요하다는 신호 (`--draft`, 팀 멘션, 외부 기여 등) 가 있으면 PR 사용.
+## Workflow
+- **PR optional for solo work**: when no team review is needed, merge `feature/*` directly into the default branch and push. Don't force PR. Use PR only when collaboration signals exist (`--draft`, team mentions, external contributions).
 
-## 병렬 Agent 작업
-- **문서는 agent 가 건드리지 않음**: 3+ agent 병렬 dispatch 시 `README.md` / `CLAUDE.md` / `API_REFERENCE.md` 는 coordinator 가 최종 일괄 갱신. agent 프롬프트에 명시적 금지 규칙 포함. 세부 규칙 (공유 등록 지점 회피, merge 순서 등) 은 `~/work/CLAUDE.md` 의 "Parallel Agent Dispatch" 섹션 참고.
+## Parallel Agent Dispatch
+- **Coordinator owns shared files**: when dispatching agents in parallel, shared files (`README.md`, `CLAUDE.md`, API docs, central index/registry files) are batch-updated by you (the coordinator) after all agents finish. State this prohibition explicitly in each agent's prompt.
+- Project-specific extensions (registration points, merge ordering, etc.) live in the per-tree `CLAUDE.md` (auto-loaded when in that directory).
 
 ---
 
