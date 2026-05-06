@@ -91,24 +91,17 @@ User: "Add caching to this service"
 ❌ Immediately implement Redis-based caching with TTL and eviction policy
 ✓ "어떤 캐싱 전략을 원하시나요? (in-memory, Redis 등) 그리고 대상 메서드와 invalidation 조건도 확인하고 싶습니다."
 
-## Compressed Korean + External Action — Confirm Before Acting
+## Confirm Before Irreversible External Actions
 
-압축된 한국어 프롬프트(대략 10단어 이하)가 **되돌리기 어려운 외부 시스템 액션**을 트리거하는 경우, 도구 호출 전 1줄로 의도를 확인하고 진행할 것.
+Short Korean prompts (~≤10 words) compress meaning heavily and misinterpret often. When such a prompt could trigger an irreversible external action, restate intent in one line and proceed. Skip confirmation when the prompt is unambiguous.
 
-**해당 액션 (예시, 망라 아님)**:
-- GitHub: star/unstar, like, follow, issue close/delete, PR merge, repo delete, branch delete, force-push
-- Filesystem: 디렉토리/파일 삭제, `rm -rf`, `git clean -f`
-- 외부 발행: PyPI publish, npm publish, Vercel production deploy, gh release create
-- 메시징: Slack/Discord/이메일 발송
+In scope: GitHub star/like/follow, issue close/delete, PR merge, branch delete, force-push, repo delete; package publish; production deploy; outbound messages; destructive shell ops (`rm -rf`, `git clean -f`).
+Out of scope: file edits, local code, local tests.
 
-**왜**: 짧은 한국어는 의미 압축률이 높아 misinterpret 빈도가 높음. 실제 사례:
-- "별점좀" → 평가/별점 매기기 의도였으나 GitHub star 버튼을 누름. 되돌리는 작업 + 신뢰 손실 발생
-- 외부 액션은 텍스트 응답과 달리 "다시 답하면 그만"이 안 됨 — 1줄 확인 비용이 복구 비용보다 압도적으로 작음
-
-**적용 방식**:
-- 프롬프트가 의문의 여지 없이 명확하면(예: "PR #42 머지해", "feature/foo 브랜치 삭제해") 그대로 진행
-- 한 단어라도 모호하면 "X 하려는 의도 맞나요?" 한 줄 후 진행. 진짜 모호하지 않은데 매번 묻는 건 노이즈이므로 피할 것
-- 내부 액션(파일 편집, 코드 작성, 로컬 테스트 실행)에는 적용 안 됨 — 외부/되돌리기 어려운 것만
+**Example:**
+User: "별점좀"
+❌ `gh api PUT /user/starred/...` immediately (actually starred repos)
+✓ "플러그인 평가/별점 매기는 거 맞죠?" → then act
 
 ## Out-of-Scope Issues
 When you discover problems outside the current request (bugs, security risks, code smells):
